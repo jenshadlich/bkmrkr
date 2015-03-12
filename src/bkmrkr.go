@@ -11,7 +11,7 @@ type Page struct {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-    log.Println(r.Header)
+    log.Println(r.RequestURI)
     t, _ := template.ParseFiles("templates/index.html")
     t.Execute(w, &Page{Title: "bkmrkr"})
 }
