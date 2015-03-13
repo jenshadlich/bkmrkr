@@ -36,6 +36,10 @@ func main() {
     requestRouter.HandleFunc("/", index).Methods("GET")
     requestRouter.HandleFunc("/status", status).Methods("GET")
     requestRouter.HandleFunc("/add", add).Methods("POST")
+    // static content
+    requestRouter.PathPrefix("/img/").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("./static/img/"))))
+    requestRouter.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./static/css/"))))
+    requestRouter.PathPrefix("/js/").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("./static/js/"))))
 
     server := &http.Server{
         Addr:           ":8000",
