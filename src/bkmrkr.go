@@ -1,6 +1,7 @@
 package main
 
 import (
+    "github.com/gorilla/mux"
     "html/template"
     "log"
     "net/http"
@@ -23,14 +24,22 @@ func status(w http.ResponseWriter, r *http.Request) {
     t.Execute(w, &Page{Title: "Status"})
 }
 
+func add(w http.ResponseWriter, r *http.Request) {
+    log.Println(r.RequestURI)
+    log.Println("TODO: add bookmark")
+    index(w, r)
+}
+
+
 func main() {
-    mux := http.NewServeMux()
-    mux.HandleFunc("/", index)
-    mux.HandleFunc("/status", status)
+    requestRouter := mux.NewRouter()
+    requestRouter.HandleFunc("/", index).Methods("GET")
+    requestRouter.HandleFunc("/status", status).Methods("GET")
+    requestRouter.HandleFunc("/add", add).Methods("POST")
 
     server := &http.Server{
         Addr:           ":8000",
-        Handler:        mux,
+        Handler:        requestRouter,
         ReadTimeout:    10 * time.Second,
         WriteTimeout:   10 * time.Second,
         MaxHeaderBytes: 1 << 20,
