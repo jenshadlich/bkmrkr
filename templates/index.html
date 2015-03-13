@@ -4,6 +4,7 @@
     <title>{{.Title}}</title>
     <link rel="stylesheet" href="css/bootstrap-3.3.2/bootstrap.min.css">
     <script src="js/bootstrap-3.3.2/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -12,10 +13,15 @@
 <form action="add" method="POST">
     <div class="form-group">
         <label for="url">URL</label>
-        <input type="url" class="form-control" id="url" placeholder="Enter URL">
+        <input type="url" class="form-control" id="url" name="url" placeholder="Enter URL">
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+<h2>Urls</h2>
+{{range $element := .Urls}}
+<p>{{ $element }}</p>
+{{end}}
 
 </body>
 

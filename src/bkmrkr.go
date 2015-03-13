@@ -8,33 +8,33 @@ import (
     "time"
 )
 
+var urls []string = make([]string, 1)
+
 type Page struct {
     Title string
+    Urls []string
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
     log.Println(r.RequestURI)
     t, _ := template.ParseFiles("templates/index.html")
-    t.Execute(w, &Page{Title: "bkmrkr"})
-}
 
-func status(w http.ResponseWriter, r *http.Request) {
-    log.Println(r.RequestURI)
-    t, _ := template.ParseFiles("templates/status.html")
-    t.Execute(w, &Page{Title: "Status"})
+    t.Execute(w, &Page{Title: "bkmrkr", Urls: urls})
 }
 
 func add(w http.ResponseWriter, r *http.Request) {
     log.Println(r.RequestURI)
-    log.Println("TODO: add bookmark")
-    index(w, r)
-}
 
+    url := r.FormValue("url")
+    urls = append(urls, url)
+    log.Println("Add:  '" + url + "'")
+
+    http.Redirect(w, r, "/", 302)
+}
 
 func main() {
     requestRouter := mux.NewRouter()
     requestRouter.HandleFunc("/", index).Methods("GET")
-    requestRouter.HandleFunc("/status", status).Methods("GET")
     requestRouter.HandleFunc("/add", add).Methods("POST")
     // static content
     requestRouter.PathPrefix("/img/").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("./static/img/"))))
