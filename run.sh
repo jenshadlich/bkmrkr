@@ -1,1 +1,1 @@
-go run src/bkmrkr.go
+go run src/bkmrkr.go src/handlers.go
