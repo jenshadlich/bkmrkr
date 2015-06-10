@@ -1,0 +1,28 @@
+bkmrkr
+======
+
+features
+
+mvp:
+- url
+- tags
+
+advanced
+inline editing
+inline viewer
+drag and drop - url to tag
+filter by tag
+favourites
+tag cloud
+ranking by clicks
+crawling / check if still available
+offline version of document
+SaaS
+notes / description
+
+realisation
+Go
+MongoDB
+mgo
+Bootstrap
+Angular.JS
